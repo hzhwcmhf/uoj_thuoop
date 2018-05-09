@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/uoj_judger.dir/main_judger.cpp.o  -o uoj_judger 

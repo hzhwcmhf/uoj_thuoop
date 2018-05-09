@@ -15,6 +15,7 @@
 				<li><a href="/submissions"><?= UOJLocale::get('submissions') ?></a></li>
 				<li><a href="/hacks"><?= UOJLocale::get('hacks') ?></a></li>
 				<li><a href="/blogs"><?= UOJLocale::get('blogs') ?></a></li>
+				<li><a href="/groups"><?= UOJLocale::get('groups') ?></a></li>
 				<li><a href="/faq"><?= UOJLocale::get('help') ?></a></li>
 			</ul>
 		</div><!--/.nav-collapse -->

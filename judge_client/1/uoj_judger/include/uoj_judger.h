@@ -214,12 +214,14 @@ string file_preview(const string &name, const size_t &len = 100) {
 	fclose(f);
 	return res;
 }
+
 void file_hide_token(const string &name, const string &token) {
 	executef("cp %s %s.bak", name.c_str(), name.c_str());
 
 	FILE *rf = fopen((name + ".bak").c_str(), "r");
 	FILE *wf = fopen(name.c_str(), "w");
 	int c;
+    //保证文件内容就是token+"\n"*
 	for (int i = 0; i <= (int)token.length(); i++)
 	{
 		c = fgetc(rf);
@@ -667,9 +669,11 @@ RunResult run_program(const RunProgramConfig &rpc) {
 		sout << " " << escapeshellarg(*it);
 	}
 	RunResult res;
+    //执行
 	if (execute(sout.str().c_str()) != 0) {
 		return RunResult::failed_result();
 	}
+    //检查是否输出正确
 	FILE *fres = fopen(rpc.result_file_name.c_str(), "r");
 	if (fres != NULL && fscanf(fres, "%d %d %d %d", &res.type, &res.ust, &res.usm, &res.exit_code) != 4) {
 		return RunResult::failed_result();
@@ -684,14 +688,15 @@ RunResult run_program(
 		const char *output_file_name,
 		const char *error_file_name,
 		const RunLimit &limit, ...) {
-	vector<string> argv;
+	vector<string> argv;//“...”部分的参数
 	va_list vl;
 	va_start(vl, limit);
 	for (const char *arg = va_arg(vl, const char *); arg; arg = va_arg(vl, const char *)) {
 		argv.push_back(arg);
 	}
 	va_end(vl);
-	return vrun_program(run_program_result_file_name,
+	return vrun_program(
+            run_program_result_file_name,
 			input_file_name,
 			output_file_name,
 			error_file_name,
@@ -1090,7 +1095,8 @@ RunCompilerResult compile_python2_7(const string &name, const string &path = wor
 }
 RunCompilerResult compile_python3(const string &name, const string &path = work_path) {
 	return run_compiler(path.c_str(),
-			"/usr/bin/python3.4", "-I", "-B", "-O", "-c", ("import py_compile\nimport sys\ntry:\n    py_compile.compile('" + name + ".code'" + ", '" + name + "', doraise=True)\n    sys.exit(0)\nexcept Exception as e:\n    print(e)\n    sys.exit(1)").c_str(), NULL);
+			"/usr/bin/python3.4", "-I", "-B", "-O", "-c",
+            ("import py_compile\nimport sys\ntry:\n    py_compile.compile('" + name + ".code'" + ", '" + name + "', doraise=True)\n    sys.exit(0)\nexcept Exception as e:\n    print(e)\n    sys.exit(1)").c_str(), NULL);
 }
 RunCompilerResult compile_java7(const string &name, const string &path = work_path) {
 	RunCompilerResult ret = prepare_java_source(name, path);
