@@ -40,7 +40,7 @@ Route::group([
 		Route::any('/blogs', '/blogs.php');
 		Route::any('/blog/{id}', '/blog_show.php');
 
-        Route::any('/groups(?:/{tab})?', '/group_manage.php');
+        	Route::any('/groups(?:/{tab})?', '/group_manage.php');
 
 
 		Route::any('/announcements', '/announcements.php');
