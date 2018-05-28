@@ -42,6 +42,12 @@ function queryUser($username) {
 	}
 	return DB::selectFirst("select * from user_info where username='$username'", MYSQL_ASSOC);
 }
+function queryGroup($group_name) {
+    if (!validateGroupname($group_name)) {
+        return null;
+    }
+    return DB::selectAll("select * from group_info where group_name='$group_name' and state='in'", MYSQL_ASSOC);
+}
 function queryProblemContent($id) {
 	return mysql_fetch_array(mysql_query("select * from problems_contents where id = $id"), MYSQL_ASSOC);
 }

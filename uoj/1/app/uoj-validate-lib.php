@@ -3,6 +3,9 @@
 function validateUsername($username) {
 	return is_string($username) && preg_match('/^[a-zA-Z0-9_]{1,20}$/', $username);
 }
+function validateGroupname($group_name) {
+    return is_string($group_name) ;
+}
 
 function validatePassword($password) {
 	return is_string($password) && preg_match('/^[a-z0-9]{32}$/', $password);

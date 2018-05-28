@@ -12,6 +12,7 @@ return [
 	'submissions' => '提交记录',
 	'hacks' => 'Hack!',
 	'blogs' => '博客',
+    'groups'=>'群组',
 	'announcements' => '公告',
 	'all the announcements' => '所有公告……',
 	'help' => '帮助',

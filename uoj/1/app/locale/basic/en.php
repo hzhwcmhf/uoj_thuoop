@@ -12,6 +12,7 @@ return [
 	'submissions' => 'Submissions',
 	'hacks' => 'Hack!',
 	'blogs' => 'Blogs',
+    'groups'=> 'Groups',
 	'announcements' => 'Announcements',
 	'all the announcements' => 'All the Announcements……',
 	'help' => 'Help',
