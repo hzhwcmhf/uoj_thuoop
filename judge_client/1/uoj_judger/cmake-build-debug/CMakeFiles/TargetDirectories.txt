@@ -1,0 +1,4 @@
+/home/yaozh16/Project/uoj_thuoop/judge_client/1/uoj_judger/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/yaozh16/Project/uoj_thuoop/judge_client/1/uoj_judger/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/yaozh16/Project/uoj_thuoop/judge_client/1/uoj_judger/cmake-build-debug/CMakeFiles/run_program.dir
+/home/yaozh16/Project/uoj_thuoop/judge_client/1/uoj_judger/cmake-build-debug/CMakeFiles/uoj_judger.dir

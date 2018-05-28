@@ -235,12 +235,12 @@ void run_child() {
 	set_limit(RLIMIT_STACK, run_program_config.stack_limit << 20);
 
 	if (run_program_config.input_file_name != "stdin") {
-		if (freopen(run_program_config.input_file_name.c_str(), "r", stdin) == NULL) {
+		if (freopen(run_program_config.input_file_name.c_str(), "r", stdin) == NULL) {//输入不存在
 			exit(11);
 		}
 	}
 	if (run_program_config.output_file_name != "stdout" && run_program_config.output_file_name != "stderr") {
-		if (freopen(run_program_config.output_file_name.c_str(), "w", stdout) == NULL) {
+		if (freopen(run_program_config.output_file_name.c_str(), "w", stdout) == NULL) {//输出文件无法写入（被占用？）
 			exit(12);
 		}
 	}
@@ -384,7 +384,7 @@ RunResult trace_children() {
 		}
 		
 		int p = rp_children_pos(pid);
-		if (p == -1) {
+		if (p == -1) {//没找到
 			if (run_program_config.need_show_trace_details) {
 				fprintf(stderr, "new_proc  %lld\n", (long long int)pid);
 			}
@@ -535,11 +535,11 @@ int main(int argc, char **argv) {
 	parse_args(argc, argv);
 
 	pid_t pid = fork();
-	if (pid == -1) {
+	if (pid == -1) {//fork fail
 		return put_result(RS_JGF);
-	} else if (pid == 0) {
+	} else if (pid == 0) {//parent
 		run_child();
-	} else {
+	} else {//child
 		return put_result(run_parent(pid));
 	}
 	return put_result(RS_JGF);
