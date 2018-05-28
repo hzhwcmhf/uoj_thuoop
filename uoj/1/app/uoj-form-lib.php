@@ -400,7 +400,11 @@ EOD
 				} else {
 					echo '<div class="text-', $this->submit_button_config['align'], '">';
 				}
-				echo '<button type="submit" id="button-submit-', $this->form_name, '" name="submit-', $this->form_name, '" value="', $this->form_name, '" class="', $this->submit_button_config['class_str'], '">', $this->submit_button_config['text'], '</button>';
+				echo '<button type="submit" id="button-submit-', $this->form_name,
+				'" name="submit-', $this->form_name,
+				'" value="', $this->form_name,
+				'" class="', $this->submit_button_config['class_str'],
+				'">', $this->submit_button_config['text'], '</button>';
 				if ($this->submit_button_config['align'] == 'offset') {
 					echo '</div>';
 				}
@@ -570,8 +574,8 @@ EOD;
 </script>
 EOD;
 		}
-		
-		private function validateAtServer() {
+
+        private function validateAtServer() {
 			$errors = array();
 			if ($this->extra_validator) {
 				$fun = $this->extra_validator;
@@ -601,25 +605,28 @@ EOD;
 		}
 	}
 	
-	function newAddDelCmdForm($form_name, $validate, $handle, $final = null) {
+	function newAddDelCmdForm($form_name, $validate, $handle, $final = null, $label_text=null) {
+        //创建一个form
 		$form = new UOJForm($form_name);
-		$form->addTextArea(
-			$form_name . '_cmds', '命令', '',
+
+		$form->addTextArea(	$form_name . '_cmds', isset($label_text)?$label_text:'命令', '',
+			//$validator_php
 			function($str, &$vdata) use($validate) {
 				$cmds = array();
 				foreach (explode("\n", $str) as $line_id => $raw_line) {
-					$line = trim($raw_line);
+					$line = trim($raw_line);//移除空格等
 					if ($line == '') {
 						continue;
 					}
-					if ($line[0] != '+' && $line[0] != '-') {
+					if ($line[0] != '+' && $line[0] != '-') {//要求第一个为+-
 						return '第' . ($line_id + 1) . '行：格式错误';
 					}
-					$obj = trim(substr($line, 1));
-					
+					$obj = trim(substr($line, 1));//对象
+					//检查对象是否存在
 					if ($err = $validate($obj)) {
 						return '第' . ($line_id + 1) . '行：' . $err;
 					}
+					//返回的为一个cmd为 {"type":"+","obj":"name"}
 					$cmds[] = array('type' => $line[0], 'obj' => $obj);
 				}
 				$vdata['cmds'] = $cmds;
